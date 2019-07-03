@@ -20,7 +20,6 @@ import {environment} from "../environments/environment";
       level: NgxLoggerLevel.TRACE,
       disableConsoleLogging: environment.production,
       serverLoggingUrl: '/api/logs',
-      httpResponseType: "json",
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
   ],
