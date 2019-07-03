@@ -2,18 +2,12 @@ package main
 
 import (
 	"angularGo/middleware"
-	"fmt"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"os"
 )
 
 func main() {
-
-	if e := godotenv.Load(); e != nil { //Загрузить файл .env
-		fmt.Println(e)
-	}
 
 	gin.SetMode(gin.DebugMode)
 	r := gin.New()
