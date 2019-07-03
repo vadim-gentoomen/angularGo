@@ -1,8 +1,7 @@
 package main
 
 import (
-	"angularGo/auth"
-	"angularGo/controllers"
+	"angularGo/middleware"
 	"fmt"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
@@ -16,21 +15,21 @@ func main() {
 		fmt.Println(e)
 	}
 
-	tokenPassword := os.Getenv("token_password")
-
 	gin.SetMode(gin.DebugMode)
 	r := gin.New()
 
 	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(middleware.FixCORS())
+
 	r.Use(static.Serve("/", static.LocalFile("./ui/dist", true)))
 
 	public := r.Group("/api/v1")
-	public.POST("/user/new", controllers.CreateAccount)
-	public.POST("/user/login", controllers.Authenticate)
+	public.POST("/user/new", middleware.CreateAccount)
+	public.POST("/user/login", middleware.Authenticate)
 
 	private := r.Group("/api/v1")
-	private.Use(auth.Auth(tokenPassword))
-	private.GET("/all", controllers.GetAll) //test
+	private.Use(middleware.Auth())
+	private.GET("/all", middleware.GetAll) //test
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -38,5 +37,4 @@ func main() {
 	}
 
 	r.Run(":" + port)
-
 }
