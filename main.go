@@ -31,6 +31,8 @@ func main() {
 	private.Use(middleware.Auth())
 	private.GET("/all", middleware.GetAll) //test
 
+	r.POST("/api/logs", middleware.Logs)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
