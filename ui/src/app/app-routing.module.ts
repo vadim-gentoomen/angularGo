@@ -11,8 +11,8 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./start-page/start-page.module')
-        .then((mod) => mod.StartPageModule)
+      import('./login/login.module')
+        .then((mod) => mod.LoginModule)
         .catch(err => console.error(err))
   },
   {
