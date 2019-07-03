@@ -2,6 +2,7 @@
 
 # compiled output
 /ui/dist
+/angularGo
 # Only exists if Bazel was run
 
 # dependencies
