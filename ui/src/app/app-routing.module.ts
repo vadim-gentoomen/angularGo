@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./components/home/home.component";
+import {HomeComponent} from './components/home/home.component';
 
 const routes: Routes = [
   {
@@ -10,13 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    // loadChildren: './start-page/start-page.module#StartPageModule'
     loadChildren: () =>
       import('./start-page/start-page.module')
-        .then((mod) => {
-          console.log(mod);
-          return mod.StartPageModule
-        })
+        .then((mod) => mod.StartPageModule)
         .catch(err => console.error(err))
   },
   {
