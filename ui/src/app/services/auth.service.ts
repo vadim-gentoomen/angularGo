@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private logger: NGXLogger) {
-    this.logger.error('TEST ERROR!!!');
+    // this.logger.error('TEST ERROR!!!');
 
   }
 }

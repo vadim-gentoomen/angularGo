@@ -1,21 +1,27 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthService} from "./services/auth.service";
 import {LoggerModule, NGXLogger, NgxLoggerLevel} from "ngx-logger";
 import {environment} from "../environments/environment";
+import { HomeComponent } from './components/home/home.component';
+import {AuthGuard} from "./services/auth.guard";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     LoggerModule.forRoot({
       level: NgxLoggerLevel.TRACE,
       disableConsoleLogging: environment.production,
@@ -24,6 +30,7 @@ import {environment} from "../environments/environment";
     }),
   ],
   providers: [
+    AuthGuard,
     AuthService,
   ],
   bootstrap: [AppComponent]
