@@ -2,7 +2,6 @@ package main
 
 import (
 	"angularGo/middleware"
-	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"os"
 )
@@ -15,7 +14,7 @@ func main() {
 	r.Use(gin.Logger(), gin.Recovery())
 	r.Use(middleware.FixCORS())
 
-	r.Use(static.Serve("/", static.LocalFile("./ui/dist", true)))
+	r.NoRoute(middleware.Static())
 
 	public := r.Group("/api/v1")
 	public.POST("/user/new", middleware.CreateAccount)
