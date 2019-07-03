@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: {title: 'Main'},
     // canActivate: [AuthGuard],
   },
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./login/login.module')
         .then((mod) => mod.LoginModule)
-        .catch(err => console.error(err))
+        .catch(err => console.error(err)),
+    data: {title: 'Login'}
   },
   {
     path: '**',
