@@ -24,6 +24,7 @@ type Account struct {
 }
 
 type AccountJson struct {
+	Id    uint     `json:"id"`
 	Name  string   `json:"name"`
 	Email string   `json:"email"`
 	Token string   `json:"token"`
@@ -36,6 +37,7 @@ func (account *Account) Account2J() AccountJson {
 		roles = append(roles, role.Name)
 	}
 	return AccountJson{
+		Id:    account.ID,
 		Name:  account.Name,
 		Email: account.Email,
 		Token: account.Token,
