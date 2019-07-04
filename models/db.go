@@ -9,6 +9,8 @@ import (
 )
 
 var db *gorm.DB
+var Admin Role
+var User Role
 
 func init() {
 
@@ -29,7 +31,10 @@ func init() {
 	}
 
 	db = conn
-	db.Debug().AutoMigrate(&Account{})
+	db.Debug().AutoMigrate(&Account{}, &Role{})
+
+	db.FirstOrCreate(&Admin, Role{Name: "Administrator"})
+	db.FirstOrCreate(&User, Role{Name: "User"})
 }
 
 func GetDB() *gorm.DB {

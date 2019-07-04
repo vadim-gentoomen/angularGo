@@ -29,10 +29,7 @@ import {AuthGuard} from './services/auth.guard';
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
   ],
-  providers: [
-    AuthGuard,
-    AuthService,
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

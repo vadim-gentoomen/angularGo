@@ -17,9 +17,16 @@ type Token struct {
 //a struct to rep user account
 type Account struct {
 	gorm.Model
+	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
 	Token    string `json:"token";sql:"-"`
+	Roles    []Role `gorm:"many2many:account_roles;"`
+}
+
+type Role struct {
+	gorm.Model
+	Name string `sql:"not null; unique;"`
 }
 
 func (account *Account) Validate() (map[string]interface{}, bool) {
@@ -54,6 +61,8 @@ func (account *Account) Create() map[string]interface{} {
 
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 	account.Password = string(hashedPassword)
+
+	account.Roles = []Role{User}
 
 	GetDB().Create(account)
 

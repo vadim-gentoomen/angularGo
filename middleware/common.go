@@ -57,7 +57,6 @@ func FixCORS() gin.HandlerFunc {
 			c.AbortWithStatus(204)
 			return
 		}
-
 		c.Next()
 	}
 }
@@ -69,6 +68,5 @@ var Logs = func(c *gin.Context) {
 	if err == nil {
 		fmt.Println(entry)
 	}
-
 	c.AbortWithStatus(http.StatusOK)
 }
