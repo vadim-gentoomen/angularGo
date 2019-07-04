@@ -6,7 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 	"os"
-	"strings"
+	"regexp"
 )
 
 type Token struct {
@@ -14,24 +14,38 @@ type Token struct {
 	jwt.StandardClaims
 }
 
-//a struct to rep user account
 type Account struct {
 	gorm.Model
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	Token    string `json:"token";sql:"-"`
+	Name     string
+	Email    string
+	Password string
+	Token    string `sql:"-"`
 	Roles    []Role `gorm:"many2many:account_roles;"`
 }
 
-type Role struct {
-	gorm.Model
-	Name string `sql:"not null; unique;"`
+type AccountJson struct {
+	Name  string   `json:"name"`
+	Email string   `json:"email"`
+	Token string   `json:"token"`
+	Roles []string `json:"roles"`
+}
+
+func (account *Account) Account2J() AccountJson {
+	var roles []string
+	for _, role := range account.Roles {
+		roles = append(roles, role.Name)
+	}
+	return AccountJson{
+		Name:  account.Name,
+		Email: account.Email,
+		Token: account.Token,
+		Roles: roles,
+	}
 }
 
 func (account *Account) Validate() (map[string]interface{}, bool) {
 
-	if !strings.Contains(account.Email, "@") {
+	if !validateEmail(account.Email) {
 		return utils.Message(false, "Email address is required"), false
 	}
 
@@ -62,8 +76,9 @@ func (account *Account) Create() map[string]interface{} {
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 	account.Password = string(hashedPassword)
 
-	account.Roles = []Role{User}
+	account.Roles = []Role{User} // только User по умолчанию
 
+	//GetDB().Preload("Roles").First(account)
 	GetDB().Create(account)
 
 	if account.ID <= 0 {
@@ -75,16 +90,19 @@ func (account *Account) Create() map[string]interface{} {
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 	account.Token = tokenString
 
-	account.Password = ""
-
 	response := utils.Message(true, "Account has been created")
-	response["account"] = account
+	response["account"] = account.Account2J()
 	return response
 }
 
 func Login(email, password string) map[string]interface{} {
 
+	if !validateEmail(email) {
+		return utils.Message(false, "Email address is required")
+	}
+
 	account := &Account{}
+	GetDB().Preload("Roles").First(account)
 	err := GetDB().Table("accounts").Where("email = ?", email).First(account).Error
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
@@ -98,14 +116,17 @@ func Login(email, password string) map[string]interface{} {
 		return utils.Message(false, "Invalid login credentials. Please try again")
 	}
 
-	account.Password = ""
-
 	tk := &Token{UserId: account.ID}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 	account.Token = tokenString
 
 	resp := utils.Message(true, "Logged In")
-	resp["account"] = account
+	resp["account"] = account.Account2J()
 	return resp
+}
+
+func validateEmail(email string) bool {
+	Re := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
+	return Re.MatchString(email)
 }
