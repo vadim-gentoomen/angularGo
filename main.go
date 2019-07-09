@@ -7,8 +7,6 @@ import (
 )
 
 func main() {
-
-	gin.SetMode(gin.DebugMode)
 	r := gin.New()
 
 	r.Use(gin.Logger(), gin.Recovery())
