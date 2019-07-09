@@ -22,6 +22,10 @@
     "@fortawesome/fontawesome-free": "^5.9.0",
     "bootstrap": "^4.3.1",
     "ngx-logger": "^3.4.5",
+    "@ngrx/store": "^8.0.1",
+    "@ngrx/effects": "^8.0.1",
+    "@ngrx/store-devtools": "^8.0.1",
+    "@ngrx/router-store": "^8.0.1",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

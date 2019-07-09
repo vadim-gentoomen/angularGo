@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
 import {first} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {Account} from '../../../models/account';
 
 @Component({
   selector: 'app-start-page',
@@ -10,6 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  account: Account = new Account();
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder,
