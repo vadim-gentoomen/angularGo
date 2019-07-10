@@ -11,7 +11,6 @@ import {Account} from '../../../models/account';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  account: Account = new Account();
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -32,8 +31,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
+      const account = {email: this.controls.email.value, password: this.controls.password.value} as Account;
       console.log(this.controls);
-      this.authService.login$(this.controls.email.value, this.controls.password.value)
+      this.authService.login$(account)
         .pipe(first())
         .subscribe((data) => {
           console.log('!!!!', data);

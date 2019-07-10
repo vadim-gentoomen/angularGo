@@ -16,10 +16,9 @@ export class AuthService {
 
   }
 
-  login$(email: string, password: string): Observable<Account> {
-    console.log(email, password);
+  login$(account: Account): Observable<Account> {
     const obs = new Observable((observer: Observer<Account>) => {
-      this.http.post<any>('/api/v1/user/login', {email, password})
+      this.http.post<any>('/api/v1/user/login', account)
         .subscribe({
           next: (respone: any) => {
             observer.next(respone);
