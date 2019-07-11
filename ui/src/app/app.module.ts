@@ -25,7 +25,7 @@ import {AuthGuard} from './services/auth.guard';
     LoggerModule.forRoot({
       level: NgxLoggerLevel.TRACE,
       disableConsoleLogging: environment.production,
-      serverLoggingUrl: '/api/logs',
+      serverLoggingUrl: `${environment.serverUrl}/api/logs`,
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
   ],
