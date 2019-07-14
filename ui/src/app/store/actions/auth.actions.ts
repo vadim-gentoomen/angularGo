@@ -1,5 +1,5 @@
 import {createAction, props, union} from '@ngrx/store';
-import {Credentials} from '../../models/account';
+import {Credentials} from '@app/models/account';
 import {AuthState} from '../state/auth.states';
 
 

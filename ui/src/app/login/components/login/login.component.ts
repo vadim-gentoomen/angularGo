@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {login} from '../../../store/actions/auth.actions';
-import {Credentials} from '../../../models/account';
-
-// import {login} from '../../../store/actions/auth.actions';
+import {login} from '@app/store/actions/auth.actions';
+import {Credentials} from '@app/models/account';
 
 @Component({
   selector: 'app-start-page',
