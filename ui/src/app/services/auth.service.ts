@@ -4,7 +4,7 @@ import {NGXLogger} from 'ngx-logger';
 import {ConnectableObservable, Observable, Observer} from 'rxjs';
 import {publish} from 'rxjs/operators';
 import {Account} from '../models/account';
-import {environment} from '../../environments/environment';
+import {environment} from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
