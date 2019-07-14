@@ -17,9 +17,26 @@ export class AuthService {
 
   }
 
-  login$(account: Account): Observable<Account> {
+  login$(email: string, password: string): Observable<Account> {
     const obs = new Observable((observer: Observer<Account>) => {
-      this.http.post<any>(`${environment.serverUrl}/api/v1/user/login`, account)
+      this.http.post<any>(`${environment.serverUrl}/api/v1/user/login`, {email, password})
+      // TODO: try if network error
+        .subscribe({
+          next: (respone: any) => {
+            observer.next(respone);
+          },
+          complete: () => observer.complete(),
+          error: (err) => observer.error(err)
+        });
+    }).pipe(publish()) as ConnectableObservable<Account>;
+    obs.connect();
+
+    return obs;
+  }
+
+  signup$(account: Account): Observable<Account> {
+    const obs = new Observable((observer: Observer<Account>) => {
+      this.http.post<any>(`${environment.serverUrl}/api/v1/user/new`, account)
       // TODO: try if network error
         .subscribe({
           next: (respone: any) => {

@@ -1,52 +1,38 @@
-import {Action} from '@ngrx/store';
+import {createAction, props, union} from '@ngrx/store';
+import {Credentials} from '../../models/account';
+import {AuthState} from '../state/auth.states';
 
 
-export enum AuthActionTypes {
-  LOGIN = '[Auth] Login',
-  LOGIN_SUCCESS = '[Auth] Login Success',
-  LOGIN_FAILURE = '[Auth] Login Failure',
-  SIGNUP = '[Auth] Signup',
-  SIGNUP_SUCCESS = '[Auth] Signup Success',
-}
+export const login = createAction(
+  '[Auth] Login',
+  props<Credentials>()
+);
 
-export class LogIn implements Action {
-  readonly type = AuthActionTypes.LOGIN;
+export const loginSuccess = createAction(
+  '[Auth] Login Success',
+  props<AuthState>()
+);
 
-  constructor(public payload: any) {
-  }
-}
+export const loginFailure = createAction(
+  '[Auth] Login Failure',
+  (errorMessage = 'Error logging in') => ({payload: {errorMessage}})
+);
 
-export class LogInSuccess implements Action {
-  readonly type = AuthActionTypes.LOGIN_SUCCESS;
+export const checkLogin = createAction(
+  '[Auth] Check Login',
+);
 
-  constructor(public payload: any) {
-  }
-}
+export const logout = createAction(
+  '[Auth] Logout'
+);
 
-export class LogInFailure implements Action {
-  readonly type = AuthActionTypes.LOGIN_FAILURE;
+export const logoutConfirmed = createAction(
+  '[Auth] Logout Confirmed'
+);
 
-  constructor(public payload: any) {
-  }
-}
+export const logoutCancelled = createAction(
+  '[Auth] Logout Cancelled'
+);
 
-export class SignUp implements Action {
-  readonly type = AuthActionTypes.SIGNUP;
-
-  constructor(public payload: any) {
-  }
-}
-
-export class SignUpSuccess implements Action {
-  readonly type = AuthActionTypes.SIGNUP_SUCCESS;
-
-  constructor(public payload: any) {
-  }
-}
-
-export type AuthActions =
-  | LogIn
-  | LogInSuccess
-  | LogInFailure
-  | SignUp
-  | SignUpSuccess;
+const all = union({login, loginSuccess, loginFailure, logout, logoutConfirmed, logoutCancelled});
+export type AuthActions = typeof all;

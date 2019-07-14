@@ -6,3 +6,8 @@ export class Account {
   token?: string;
   roles?: string[];
 }
+
+export interface Credentials {
+  email: string;
+  password: string;
+}
