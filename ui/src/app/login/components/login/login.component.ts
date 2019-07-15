@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
-import {login} from '@app/store/actions/auth.actions';
 import {Credentials} from '@app/models/account';
+import {login} from '@app/store/actions/login.actions';
 
 @Component({
   selector: 'app-start-page',
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     // this.store.dispatch(login({email: 'vadim.dynnik@gmail.com', password: 'secret'}));
     if (this.loginForm.valid) {
       const credentials: Credentials = {email: this.controls.email.value, password: this.controls.password.value};
-      this.store.dispatch(login(credentials));
+      this.store.dispatch(login({credentials}));
     }
 
   }

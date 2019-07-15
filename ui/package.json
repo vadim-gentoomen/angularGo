@@ -24,6 +24,7 @@
     "ngx-logger": "^3.4.5",
     "@ngrx/store": "^8.1.0",
     "@ngrx/effects": "^8.1.0",
+    "@ngrx/entity": "^8.1.0",
     "@ngrx/store-devtools": "^8.1.0",
     "@ngrx/router-store": "^8.1.0",
     "rxjs": "~6.5.2",

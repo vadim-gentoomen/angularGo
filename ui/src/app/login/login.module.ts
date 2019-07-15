@@ -4,8 +4,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from './components/login/login.component';
 import {LoginRoutingModule} from './login-routing.module';
-import { RegisterComponent } from './components/register/register.component';
-import { RecoveryComponent } from './components/recovery/recovery.component';
+import {RegisterComponent} from './components/register/register.component';
+import {RecoveryComponent} from './components/recovery/recovery.component';
 import {BigbrosModule} from '../bigbros/bigbros.module';
 
 @NgModule({

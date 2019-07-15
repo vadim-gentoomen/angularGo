@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private titleService: Title) { }
+              private titleService: Title) {
+  }
 
   ngOnInit(): void {
     this.router.events

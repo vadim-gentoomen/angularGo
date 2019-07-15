@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {NGXLogger} from 'ngx-logger';
 import {ConnectableObservable, Observable, Observer} from 'rxjs';
 import {publish} from 'rxjs/operators';
-import {Account} from '../models/account';
+import {Account, AuthResponce, Credentials} from '../models/account';
 import {environment} from '@env/environment';
 
 @Injectable({
@@ -17,25 +17,27 @@ export class AuthService {
 
   }
 
-  login$(email: string, password: string): Observable<Account> {
-    const obs = new Observable((observer: Observer<Account>) => {
-      this.http.post<any>(`${environment.serverUrl}/api/v1/user/login`, {email, password})
+  login$(credentials: Credentials): Observable<AuthResponce> {
+    const {email, password} = credentials;
+    console.log(credentials);
+    const obs = new Observable((observer: Observer<AuthResponce>) => {
+      this.http.post<AuthResponce>(`${environment.serverUrl}/api/v1/user/login`, credentials)
       // TODO: try if network error
         .subscribe({
-          next: (respone: any) => {
+          next: (respone: AuthResponce) => {
             observer.next(respone);
           },
           complete: () => observer.complete(),
           error: (err) => observer.error(err)
         });
-    }).pipe(publish()) as ConnectableObservable<Account>;
+    }).pipe(publish()) as ConnectableObservable<AuthResponce>;
     obs.connect();
 
     return obs;
   }
 
-  signup$(account: Account): Observable<Account> {
-    const obs = new Observable((observer: Observer<Account>) => {
+  signup$(account: Account): Observable<AuthResponce> {
+    const obs = new Observable((observer: Observer<AuthResponce>) => {
       this.http.post<any>(`${environment.serverUrl}/api/v1/user/new`, account)
       // TODO: try if network error
         .subscribe({
@@ -45,7 +47,7 @@ export class AuthService {
           complete: () => observer.complete(),
           error: (err) => observer.error(err)
         });
-    }).pipe(publish()) as ConnectableObservable<Account>;
+    }).pipe(publish()) as ConnectableObservable<AuthResponce>;
     obs.connect();
 
     return obs;

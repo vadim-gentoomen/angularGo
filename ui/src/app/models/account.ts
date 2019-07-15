@@ -11,3 +11,9 @@ export interface Credentials {
   email: string;
   password: string;
 }
+
+export interface AuthResponce {
+  account?: Account;
+  message?: string;
+  status?: boolean;
+}

@@ -10,12 +10,11 @@ import {AuthService} from '@app/services/auth.service';
 import {LoggerModule, NGXLogger, NgxLoggerLevel} from 'ngx-logger';
 import {environment} from '@env/environment';
 import {HomeComponent} from './components/home/home.component';
-import {AuthGuard} from './services/auth.guard';
-import {appReducers} from './store/reducers/app.reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {AuthEffects} from './store/effects/auth.effects';
 import {EffectsModule} from '@ngrx/effects';
+import {appReducers} from '@app/store/reducers';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,7 @@ import {EffectsModule} from '@ngrx/effects';
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
     StoreModule.forRoot(appReducers),
-    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
+    StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     EffectsModule.forRoot([AuthEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

@@ -1,26 +1,31 @@
 import {Injectable} from '@angular/core';
-import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {AuthService} from '@app/services/auth.service';
+import {Action} from '@ngrx/store';
 import {Router} from '@angular/router';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {EMPTY, Observable} from 'rxjs';
+import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {AuthApiActions, LoginPageActions} from '@app/store/actions';
+import {Credentials} from '@app/models/account';
 
 @Injectable()
 export class AuthEffects {
 
-  // login$ = createEffect(() => this.actions$.pipe(
-  //   ofType('[Auth] Login'),
-  //   tap((data) => console.log('Login', data)),
-  //   switchMap(() => this.authService.login$()
-  //     .pipe(
-  //       map(data => ({ type: '[Auth] Login', payload: data })),
-  //       catchError(() => EMPTY)
-  //     ))
-  //   ),
-  //   {dispatch: false}
-  // );
+  login$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(LoginPageActions.login),
+    map(action => action.credentials),
+    exhaustMap((credentials: Credentials) => {
+      return this.authService.login$(credentials)
+        .pipe(
+          tap((data) => console.log('Login Response', data)),
+          map(({account, message, status}) => AuthApiActions.loginSuccess({account, message, status})),
+          catchError(error => of(AuthApiActions.loginFailure({error})))
+        );
+    })
+    ),
+  );
 
-  logoutSuccess$ = createEffect(() => this.actions$.pipe(
+  logoutSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType('[Auth] Logout Confirmed'),
     tap((data) => {
       console.log('Logout Confirmed', data);
