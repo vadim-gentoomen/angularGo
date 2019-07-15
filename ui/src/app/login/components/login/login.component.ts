@@ -11,6 +11,7 @@ import {login} from '@app/store/actions/login.actions';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  show = false;
 
   constructor(private fb: FormBuilder,
               private store: Store<any>) {
@@ -33,7 +34,10 @@ export class LoginComponent implements OnInit {
       const credentials: Credentials = {email: this.controls.email.value, password: this.controls.password.value};
       this.store.dispatch(login({credentials}));
     }
+  }
 
+  toggleShow(): void {
+    this.show = !this.show;
   }
 
 }

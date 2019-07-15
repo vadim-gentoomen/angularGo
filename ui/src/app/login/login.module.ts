@@ -6,7 +6,7 @@ import {LoginComponent} from './components/login/login.component';
 import {LoginRoutingModule} from './login-routing.module';
 import {RegisterComponent} from './components/register/register.component';
 import {RecoveryComponent} from './components/recovery/recovery.component';
-import {BigbrosModule} from '../bigbros/bigbros.module';
+import {LoginMaterialModule} from '@app/login/login-material.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent, RecoveryComponent],
@@ -16,7 +16,7 @@ import {BigbrosModule} from '../bigbros/bigbros.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BigbrosModule,
+    LoginMaterialModule
   ]
 })
 export class LoginModule {

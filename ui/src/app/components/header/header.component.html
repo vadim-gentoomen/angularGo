@@ -1,0 +1,24 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <span>
+        <img src="assets/img/angular_whiteTransparent.svg" class="logo">
+        AngularGo Starter Kit
+      </span>
+
+    <span class="fill-remaining-space"></span>
+
+    <button mat-button [matMenuTriggerFor]="menu1">Меню1</button>
+    <mat-menu #menu1="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="menu2">Меню1</button>
+    <mat-menu #menu2="matMenu">
+      <button mat-menu-item>Item 3</button>
+      <button mat-menu-item>Item 4</button>
+    </mat-menu>
+
+    <button mat-button (click)="onLogout()">Выход</button>
+  </mat-toolbar-row>
+</mat-toolbar>
