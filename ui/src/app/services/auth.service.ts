@@ -18,8 +18,6 @@ export class AuthService {
   }
 
   login$(credentials: Credentials): Observable<AuthResponce> {
-    const {email, password} = credentials;
-    console.log(credentials);
     const obs = new Observable((observer: Observer<AuthResponce>) => {
       this.http.post<AuthResponce>(`${environment.serverUrl}/api/v1/user/login`, credentials)
       // TODO: try if network error

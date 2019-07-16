@@ -30,7 +30,7 @@
             "styles": [
               "src/styles.scss",
               "./node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "./assets/fonts/material-icons.css"
+              "src/assets/fonts/material-icons.css"
             ],
             "scripts": []
           },
