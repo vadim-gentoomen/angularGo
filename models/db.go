@@ -12,8 +12,7 @@ var db *gorm.DB
 
 func init() {
 
-	e := godotenv.Load()
-	if e != nil {
+	if e := godotenv.Load(); e != nil {
 		fmt.Print(e)
 	}
 
