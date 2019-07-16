@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {logout} from '@app/store/actions/auth.actions';
+import {logoutConfirmation} from '@app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    this.store.dispatch(logout());
+    this.store.dispatch(logoutConfirmation());
   }
 
 }

@@ -19,6 +19,7 @@ import {appReducers} from '@app/store/reducers';
 import {AppMaterialModule} from '@app/app-material.module';
 import {HeaderComponent} from '@app/components/header/header.component';
 import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.component';
+import {LogoutConfirmationDialogComponent} from '@app/components/logout-confirmaition/logout-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.compo
     HomeComponent,
     HomeLayoutComponent,
     HeaderComponent,
+    LogoutConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,7 @@ import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.compo
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],
+  entryComponents: [LogoutConfirmationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {
