@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {logout} from '@app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -7,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<void>) {
+  }
 
   ngOnInit() {
   }
 
   onLogout() {
+    this.store.dispatch(logout());
   }
 
 }
