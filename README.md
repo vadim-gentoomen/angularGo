@@ -1,1 +1,1 @@
-# Starter project. Go, Angular, Rest API with jwt
+# Starter project. Go, Angular, ngrx, Rest API with jwt
