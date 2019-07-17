@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {Credentials} from '@app/models/account';
 import {login} from '@app/store/actions/login.actions';
+import * as fromAuth from '@app/store/reducers';
 
 @Component({
   selector: 'app-start-page',
@@ -12,6 +13,9 @@ import {login} from '@app/store/actions/login.actions';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   show = false;
+
+  pending$ = this.store.pipe(select(fromAuth.getLoginPagePending));
+  error$ = this.store.pipe(select(fromAuth.getLoginPageError));
 
   constructor(private fb: FormBuilder,
               private store: Store<any>) {
