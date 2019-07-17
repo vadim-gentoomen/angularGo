@@ -4,8 +4,6 @@ import {
   MatButtonModule,
   MatCardModule,
   MatDialogModule,
-  MatFormFieldControl,
-  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
@@ -25,8 +23,7 @@ import {
     MatTableModule,
     MatMenuModule,
     MatIconModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -38,9 +35,8 @@ import {
     MatTableModule,
     MatMenuModule,
     MatIconModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
+    MatProgressSpinnerModule
   ],
 })
-export class LoginMaterialModule {
+export class MainMaterialModule {
 }

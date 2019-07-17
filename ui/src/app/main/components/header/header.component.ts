@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {logoutConfirmation} from '@app/store/actions/auth.actions';
+import {logoutConfirmation} from '@app/auth/store/actions/auth.actions';
 
 @Component({
   selector: 'app-header',

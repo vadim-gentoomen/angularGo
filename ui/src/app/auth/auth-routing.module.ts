@@ -5,14 +5,14 @@ import {RegisterComponent} from './components/register/register.component';
 import {RecoveryComponent} from './components/recovery/recovery.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'recovery', component: RecoveryComponent},
+  {path: 'login', component: LoginComponent, data: { title: 'Login' }},
+  {path: 'register', component: RegisterComponent, data: { title: 'Register' }},
+  {path: 'recovery', component: RecoveryComponent, data: { title: 'Recovery' }},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LoginRoutingModule {
+export class AuthRoutingModule {
 }

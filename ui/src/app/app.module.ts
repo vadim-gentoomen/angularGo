@@ -7,28 +7,19 @@ import {StoreModule} from '@ngrx/store';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AuthService} from '@app/services/auth.service';
+import {AuthService} from '@app/auth/services/auth.service';
 import {LoggerModule, NGXLogger, NgxLoggerLevel} from 'ngx-logger';
 import {environment} from '@env/environment';
-import {HomeComponent} from '@app/components/home/home.component';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
-import {AuthEffects} from './store/effects/auth.effects';
+import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {AuthEffects} from './auth/store/effects/auth.effects';
 import {EffectsModule} from '@ngrx/effects';
-import {appReducers} from '@app/store/reducers';
 import {AppMaterialModule} from '@app/app-material.module';
-import {HeaderComponent} from '@app/components/header/header.component';
-import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.component';
-import {LogoutConfirmationDialogComponent} from '@app/components/logout-confirmaition/logout-confirmation-dialog.component';
+import {metaReducers, ROOT_REDUCERS} from '@app/reducers';
+import {AuthModule} from '@app/auth/auth.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    HomeLayoutComponent,
-    HeaderComponent,
-    LogoutConfirmationDialogComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,19 +28,31 @@ import {LogoutConfirmationDialogComponent} from '@app/components/logout-confirma
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AuthModule,
     LoggerModule.forRoot({
       level: NgxLoggerLevel.TRACE,
       disableConsoleLogging: environment.production,
       serverLoggingUrl: `${environment.serverUrl}/api/logs`,
       serverLogLevel: NgxLoggerLevel.ERROR
     }),
-    StoreModule.forRoot(appReducers),
-    StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
+    StoreModule.forRoot(ROOT_REDUCERS, {
+      // metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      },
+    }),
+    StoreRouterConnectingModule.forRoot({routerState: RouterState.Minimal}),
+    StoreDevtoolsModule.instrument({name: 'NgRx App'}),
+
+
+
     EffectsModule.forRoot([AuthEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],
-  entryComponents: [LogoutConfirmationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

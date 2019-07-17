@@ -2,13 +2,13 @@ import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {AuthService} from '@app/services/auth.service';
+import {AuthService} from '@app/auth/services/auth.service';
 import {Action} from '@ngrx/store';
 import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
-import {AuthActions, AuthApiActions, LoginPageActions} from '@app/store/actions';
-import {Credentials} from '@app/models/account';
-import {LogoutConfirmationDialogComponent} from '@app/components/logout-confirmaition/logout-confirmation-dialog.component';
+import {AuthActions, AuthApiActions, LoginPageActions} from '@app/auth/store/actions';
+import {Credentials} from '@app/auth/models/account';
+import {LogoutConfirmationDialogComponent} from '@app/auth/components/logout-confirmaition/logout-confirmation-dialog.component';
 
 @Injectable()
 export class AuthEffects {

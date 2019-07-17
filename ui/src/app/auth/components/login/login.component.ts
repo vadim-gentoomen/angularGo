@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {select, Store} from '@ngrx/store';
-import {Credentials} from '@app/models/account';
-import {login} from '@app/store/actions/login.actions';
-import * as fromAuth from '@app/store/reducers';
+import {Credentials} from '@app/auth/models/account';
+import {login} from '@app/auth/store/actions/login.actions';
+import * as fromAuth from '@app/auth/store/reducers';
 
 @Component({
-  selector: 'app-start-page',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {AuthApiActions, LoginPageActions} from '@app/store/actions';
+import {AuthApiActions, LoginPageActions} from '@app/auth/store/actions';
 
 
 export interface State {
@@ -12,7 +12,7 @@ export const initialState: State = {
   pending: false,
 };
 
-export const loginPageReducer = createReducer(
+export const reducer = createReducer(
   initialState,
   on(LoginPageActions.login, state => ({
     ...state,
